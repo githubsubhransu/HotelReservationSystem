@@ -19,6 +19,8 @@ import java.util.Scanner;
 public class HotelReservation {
 
     static final int maxDays = 31;
+    static final int minRoomLimit = 1;
+    static final int maxRoomLimit = 2000;
 
     // Main Method which drives the entire solution and also covers scanner parameter exceptions
     public static void main(String[] args) throws IllegalArgumentException{
@@ -30,7 +32,7 @@ public class HotelReservation {
         }catch (Exception e){
             throw new IllegalArgumentException("Please pass integer range of values in input between 1 to 2000");
         }
-        if((maxRooms < 1) || (maxRooms > 2000)){
+        if((maxRooms < minRoomLimit) || (maxRooms > maxRoomLimit)){
             throw new IllegalArgumentException("Invalid room numbers : Must be between 1 to 2000");
         }
         int[][] hotelRoomMatrix = new int[maxRooms][maxDays];
@@ -52,11 +54,11 @@ public class HotelReservation {
             return false;
         }
         // Validate if the Start and End date are not exceeding 31
-        if(startDay > 31 || endDay > 31){
+        if(startDay > maxDays || endDay > maxDays){
             return false;
         }
         // Validate if the gap of reservation is more than a month
-        if(endDay-startDay > 31){
+        if(endDay-startDay > maxDays){
             return false;
         }
         // Loop through the existing Hotel Matrix to check availability
